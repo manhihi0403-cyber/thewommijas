@@ -31,7 +31,7 @@ GitHub 저장소에서 아래 두 값을 Secrets로 등록해야 합니다.
 
 ## 실행 방법 1: GitHub Actions에서 실행하기
 
-이 방법이 실제 감시 봇 운영용입니다. 내 컴퓨터를 켜두지 않아도 GitHub가 10분마다 실행합니다.
+이 방법이 실제 감시 봇 운영용입니다. 내 컴퓨터를 켜두지 않아도 GitHub가 1분마다 확인합니다.
 
 ### 1. GitHub 저장소에 파일 올리기
 
@@ -87,14 +87,14 @@ TELEGRAM_CHAT_ID
 
 ### 4. 자동 실행 확인하기
 
-설정된 workflow는 10분마다 자동 실행됩니다.
+설정된 workflow는 GitHub Actions 제한 때문에 5분마다 시작하고, 실행 안에서 1분 간격으로 5번 확인합니다.
 
 ```yaml
 schedule:
-  - cron: "*/10 * * * *"
+  - cron: "*/5 * * * *"
 ```
 
-확인은 GitHub 저장소의 `Actions` 탭에서 할 수 있습니다. 새 실행 기록이 10분 간격으로 쌓이면 정상입니다.
+확인은 GitHub 저장소의 `Actions` 탭에서 할 수 있습니다. 새 실행 기록은 약 5분 간격으로 쌓이고, 각 실행 로그 안에서 `Check 1/5`부터 `Check 5/5`까지 1분 간격으로 확인하면 정상입니다.
 
 GitHub Actions 예약 실행은 정확히 초 단위로 실행되지 않을 수 있고, GitHub 상황에 따라 몇 분 늦게 시작될 수 있습니다.
 
@@ -177,7 +177,7 @@ python check_woomije.py
 - 확인 시간: ...
 - 링크: https://thewoomije.co.kr/reservation-step1.php?year=2026&month=8&type=party
 
-아직 예약 가능 상태가 아닙니다. 계속 10분마다 확인합니다.
+아직 예약 가능 상태가 아닙니다. 계속 1분마다 확인합니다.
 ```
 
 자리가 나면 아래 같은 메시지가 옵니다.
