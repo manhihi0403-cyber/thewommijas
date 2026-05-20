@@ -91,7 +91,7 @@ def send_telegram(message: str) -> None:
 
     if not token or not chat_id:
         raise RuntimeError(
-            "예약 가능 상태지만 TELEGRAM_BOT_TOKEN 또는 TELEGRAM_CHAT_ID가 없습니다."
+            "텔레그램 알림 발송에 필요한 TELEGRAM_BOT_TOKEN 또는 TELEGRAM_CHAT_ID가 없습니다."
         )
 
     api_url = f"https://api.telegram.org/bot{token}/sendMessage"
