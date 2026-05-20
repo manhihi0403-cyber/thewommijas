@@ -30,16 +30,7 @@ jobs:
         run: python -m pip install -r requirements.txt
 
       - name: Check reservation status
-        shell: bash
-        run: |
-          for i in 1 2 3 4 5; do
-            echo "Check $i/5"
-            python check_woomije.py
-
-            if [ "$i" != "5" ]; then
-              sleep 60
-            fi
-          done
+        run: python check_woomije.py --loop
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
