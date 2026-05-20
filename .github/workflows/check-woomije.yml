@@ -32,18 +32,14 @@ jobs:
       - name: Check reservation status
         shell: bash
         run: |
-          if [ "${{ github.event_name }}" = "schedule" ]; then
-            for i in 1 2 3 4 5; do
-              echo "Check $i/5"
-              python check_woomije.py
-
-              if [ "$i" != "5" ]; then
-                sleep 60
-              fi
-            done
-          else
+          for i in 1 2 3 4 5; do
+            echo "Check $i/5"
             python check_woomije.py
-          fi
+
+            if [ "$i" != "5" ]; then
+              sleep 60
+            fi
+          done
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
