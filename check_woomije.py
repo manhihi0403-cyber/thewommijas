@@ -104,7 +104,10 @@ def send_telegram(message: str) -> None:
         },
         timeout=20,
     )
-    response.raise_for_status()
+    if not response.ok:
+        raise RuntimeError(
+            f"텔레그램 알림 발송 실패: HTTP {response.status_code} {response.text}"
+        )
 
 
 def main() -> int:
