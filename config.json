@@ -6,7 +6,7 @@
   "check_interval_seconds": 60,
   "checks_per_run": 5,
   "notify_when_available": true,
-  "notify_when_no_available": true,
+  "notify_when_no_available": false,
   "include_status_list": true,
   "timezone": "Asia/Seoul"
 }
