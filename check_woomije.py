@@ -119,20 +119,24 @@ def main() -> int:
     print(f"{TARGET_YEAR}년 {TARGET_MONTH}월 {TARGET_DAY}일 상태: {status}")
     print(f"예약 가능 판단: {'가능' if available else '불가'}")
 
-    if not available:
-        print("마감 또는 예약 불가 상태입니다. 텔레그램 알림은 보내지 않습니다.")
-        return 0
+    if available:
+        message_title = "더우미제 돌잔치 예약 가능 알림"
+        message_tail = "자동 예약은 하지 않았습니다. 직접 사이트에서 확인해 주세요."
+    else:
+        message_title = "더우미제 예약 확인 완료"
+        message_tail = "아직 예약 가능 상태가 아닙니다. 계속 10분마다 확인합니다."
 
     message = (
-        "더우미제 돌잔치 예약 가능 알림\n"
+        f"{message_title}\n"
         f"- 날짜: {TARGET_YEAR}년 {TARGET_MONTH}월 {TARGET_DAY}일\n"
         f"- 현재 상태: {status}\n"
+        f"- 예약 가능 판단: {'가능' if available else '불가'}\n"
         f"- 확인 시간: {checked_at}\n"
         f"- 링크: {RESERVATION_URL}\n\n"
-        "자동 예약은 하지 않았습니다. 직접 사이트에서 확인해 주세요."
+        f"{message_tail}"
     )
     send_telegram(message)
-    print("예약 가능 상태입니다. 텔레그램 알림을 발송했습니다.")
+    print("텔레그램 알림을 발송했습니다.")
     return 0
 
 
