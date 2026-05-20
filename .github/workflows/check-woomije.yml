@@ -1,19 +1,21 @@
 name: Check Woomije Reservation
 
 on:
-  push:
-    branches:
-      - main
   schedule:
-    - cron: "*/10 * * * *"
+    - cron: "*/5 * * * *"
   workflow_dispatch:
 
 permissions:
   contents: read
 
+concurrency:
+  group: check-woomije
+  cancel-in-progress: false
+
 jobs:
   check:
     runs-on: ubuntu-latest
+    timeout-minutes: 7
 
     steps:
       - name: Checkout
@@ -28,7 +30,20 @@ jobs:
         run: python -m pip install -r requirements.txt
 
       - name: Check reservation status
-        run: python check_woomije.py
+        shell: bash
+        run: |
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+            for i in 1 2 3 4 5; do
+              echo "Check $i/5"
+              python check_woomije.py
+
+              if [ "$i" != "5" ]; then
+                sleep 60
+              fi
+            done
+          else
+            python check_woomije.py
+          fi
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
