@@ -150,7 +150,7 @@ def main() -> int:
         message_tail = "자동 예약은 하지 않았습니다. 직접 사이트에서 확인해 주세요."
     else:
         message_title = "더우미제 예약 확인 완료"
-        message_tail = "아직 예약 가능 상태가 아닙니다. 계속 10분마다 확인합니다."
+        message_tail = "아직 예약 가능 상태가 아닙니다. 계속 1분마다 확인합니다."
 
     message = (
         f"{message_title}\n"
