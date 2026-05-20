@@ -85,9 +85,32 @@ def is_available(status: str) -> bool:
     return "가능" in normalized
 
 
+def normalize_bot_token(value: str) -> str:
+    token = value.strip()
+    url_match = re.search(r"api\.telegram\.org/bot([^/\s]+)/?", token)
+    if url_match:
+        return url_match.group(1)
+    if token.lower().startswith("bot") and ":" in token:
+        return token[3:].strip()
+    return token
+
+
+def normalize_chat_id(value: str) -> str:
+    chat_id = value.strip()
+    chat_match = re.search(r'"chat"\s*:\s*\{[^{}]*"id"\s*:\s*(-?\d+)', chat_id)
+    if chat_match:
+        return chat_match.group(1)
+    if re.fullmatch(r"-?\d+", chat_id):
+        return chat_id
+    id_match = re.search(r'"id"\s*:\s*(-?\d+)', chat_id)
+    if id_match:
+        return id_match.group(1)
+    return chat_id
+
+
 def send_telegram(message: str) -> None:
-    token = (os.environ.get("TELEGRAM_BOT_TOKEN") or "").strip()
-    chat_id = (os.environ.get("TELEGRAM_CHAT_ID") or "").strip()
+    token = normalize_bot_token(os.environ.get("TELEGRAM_BOT_TOKEN") or "")
+    chat_id = normalize_chat_id(os.environ.get("TELEGRAM_CHAT_ID") or "")
 
     if not token or not chat_id:
         raise RuntimeError(
