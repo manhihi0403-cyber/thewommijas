@@ -86,8 +86,8 @@ def is_available(status: str) -> bool:
 
 
 def send_telegram(message: str) -> None:
-    token = os.environ.get("TELEGRAM_BOT_TOKEN")
-    chat_id = os.environ.get("TELEGRAM_CHAT_ID")
+    token = (os.environ.get("TELEGRAM_BOT_TOKEN") or "").strip()
+    chat_id = (os.environ.get("TELEGRAM_CHAT_ID") or "").strip()
 
     if not token or not chat_id:
         raise RuntimeError(
