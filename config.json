@@ -2,7 +2,7 @@
   "year": 2026,
   "month": 8,
   "reservation_type": "party",
-  "watch_days": [],
+  "watch_days": [1],
   "check_interval_seconds": 60,
   "checks_per_run": 5,
   "notify_when_available": true,
