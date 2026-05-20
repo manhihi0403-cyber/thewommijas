@@ -1,0 +1,12 @@
+{
+  "year": 2026,
+  "month": 8,
+  "reservation_type": "party",
+  "watch_days": [],
+  "check_interval_seconds": 60,
+  "checks_per_run": 5,
+  "notify_when_available": true,
+  "notify_when_no_available": true,
+  "include_status_list": true,
+  "timezone": "Asia/Seoul"
+}
