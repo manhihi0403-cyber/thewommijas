@@ -2,7 +2,7 @@ name: Check Woomije Reservation
 
 on:
   schedule:
-    - cron: "*/5 * * * *"
+    - cron: "3,33 * * * *"
   workflow_dispatch:
 
 permissions:
@@ -15,7 +15,7 @@ concurrency:
 jobs:
   check:
     runs-on: ubuntu-latest
-    timeout-minutes: 7
+    timeout-minutes: 40
 
     steps:
       - name: Checkout
