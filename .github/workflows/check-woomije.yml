@@ -1,6 +1,9 @@
 name: Check Woomije Reservation
 
 on:
+  push:
+    branches:
+      - main
   schedule:
     - cron: "3,33 * * * *"
   workflow_dispatch:
